@@ -16,3 +16,6 @@ I giochi vengono caricati dalle rispettive pagine GitHub Pages. Tornare alla rac
 Per modificare la raccolta aggiorna il catalogo in app.js. Per provarla in locale: python3 -m http.server 8000.
 
 Le copertine attuali sono provvisorie. Mimmo Express è un progetto personale ed è escluso dal catalogo.
+
+## Galleria
+Copertine illustrate con loghi originali e galleria ingrandibile di schermate reali. Provenienza e limiti in docs/ASSETS.md.
