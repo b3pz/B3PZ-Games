@@ -36,6 +36,11 @@ I salvataggi dipendono dal singolo gioco e dal browser. Tornare alla raccolta ch
 Provenienza delle immagini e limiti delle catture: docs/ASSETS.md.
 
 ## World update
-Sfondi tratti dalle schermate dei giochi, accesso rapido all’ultimo avvio, filtro In sviluppo, schede con istruzioni e stato del progetto, presentazione del creatore. PARTITION_99 è presentato con l’orario iniziale 22:43. Il collegamento Riprendi riapre il gioco: il recupero della partita dipende dai suoi salvataggi.
+Sfondi tratti dalle schermate dei giochi, accesso rapido all’ultimo avvio, filtro In sviluppo, schede con istruzioni e stato del progetto, presentazione del creatore. Il collegamento Riprendi riapre il gioco: il recupero della partita dipende dai suoi salvataggi.
 
 Prompt e nomi dei file audio: [docs/AUDIO_PROMPTS.md](docs/AUDIO_PROMPTS.md). Nessun audio Gemini incluso finché i file non sono forniti.
+
+## Colonna sonora originale
+Tre temi strumentali sintetici, composti e renderizzati con scripts/compose_soundtrack.py: World Orbit, Arcade Drift e Midnight Save. Non usano campioni o melodie di brani esistenti. La musica del menu si attiva esplicitamente, con selettore e volume; si interrompe entrando in un gioco o nascondendo la pagina. I file MP3 sono già inclusi. I prompt Gemini restano disponibili per future versioni.
+
+Il collegamento Area riservata conduce a un laboratorio con accesso privato su un hosting separato. Il codice pubblico del portfolio non contiene il catalogo delle app personali. La protezione del catalogo non modifica l’accessibilità delle app esterne già pubblicate.

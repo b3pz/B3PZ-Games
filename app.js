@@ -2,7 +2,7 @@
 const $ = id => document.getElementById(id);
 function readLocal(key, fallback) { try { const value = localStorage.getItem(key); return value ? JSON.parse(value) : fallback; } catch { return fallback; } }
 function writeLocal(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch {} }
-const preferences = Object.assign({sound:false,music:false,crt:true,motion:matchMedia('(prefers-reduced-motion: reduce)').matches}, readLocal('b3pz:settings', {}));
+const preferences = Object.assign({sound:false,music:false,track:'world-orbit',volume:.2,crt:true,motion:matchMedia('(prefers-reduced-motion: reduce)').matches}, readLocal('b3pz:settings', {}));
 let favorites = new Set(readLocal('b3pz:favorites', []).filter(repo => games.some(g => g.repo === repo)));
 let recent = readLocal('b3pz:lastPlayed', null);
 let filter = 'Tutti', favoritesOnly = false, developmentOnly = false, list = games.slice(), selected = Math.max(0, games.findIndex(g => g.repo === readLocal('b3pz:selected', 'PARTITION_99'))), playing = null;
@@ -13,8 +13,31 @@ const selectedGame = () => list[selected];
 const activeDialog = () => document.querySelector('dialog[open]');
 const toast = document.createElement('div'); toast.className = 'toast'; toast.role = 'status'; toast.hidden = true; document.body.append(toast);
 function tell(message) { toast.textContent = message; toast.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { toast.hidden = true; }, 2200); }
-const menuMusic = new Audio(); menuMusic.loop=true; menuMusic.volume=.2;
-function syncMusic(){if(worldAudio.menu && preferences.music && !playing && !document.hidden && !bootVisible){if(!menuMusic.src)menuMusic.src=worldAudio.menu;menuMusic.play().catch(()=>{});}else menuMusic.pause();}
+const menuMusic = new Audio(); menuMusic.loop=true; menuMusic.preload='none';
+preferences.volume=Number.isFinite(preferences.volume)?Math.max(0,Math.min(1,preferences.volume)):.2;
+if(!soundtracks.some(t=>t.id===preferences.track))preferences.track=soundtracks[0].id;
+let musicUnlocked=false;
+function drawMusic(){
+ $('music-tracks').replaceChildren(...soundtracks.map(track=>{const button=document.createElement('button');button.type='button';button.className='music-track';button.setAttribute('aria-pressed',String(track.id===preferences.track));const title=document.createElement('strong'),mood=document.createElement('small');title.textContent=track.title;mood.textContent=track.mood;button.append(title,mood);button.onclick=()=>{preferences.track=track.id;preferences.music=true;musicUnlocked=true;menuMusic.pause();menuMusic.removeAttribute('src');menuMusic.load();applyPreferences();drawMusic();};return button;}));
+ $('music-volume').value=String(Math.round(preferences.volume*100));$('music-volume-label').value=Math.round(preferences.volume*100)+'%';
+ $('music-play').textContent=preferences.music&&musicUnlocked?'Ⅱ Pausa':'▶ Ascolta';
+ $('music-open').setAttribute('aria-label',preferences.music&&musicUnlocked?'Colonna sonora attiva':'Colonna sonora');
+}
+function syncMusic(){
+ const track=soundtracks.find(t=>t.id===preferences.track)||soundtracks[0];
+ menuMusic.volume=preferences.volume;
+ if(preferences.music && musicUnlocked && !playing && !document.hidden && !bootVisible){
+  if(menuMusic.getAttribute('src')!==track.src)menuMusic.src=track.src;
+  menuMusic.play().then(()=>{$('music-state').textContent='In ascolto · '+track.title;}).catch(()=>{$('music-state').textContent='Premi Ascolta per avviare la musica. Se non parte, riprova tra poco.';});
+ }else {menuMusic.pause();$('music-state').textContent=preferences.music&&!musicUnlocked?'Premi Ascolta per riprendere la musica.':'La musica si ferma quando avvii un gioco.';}
+ drawMusic();
+}
+menuMusic.addEventListener('error',()=>{$('music-state').textContent='Brano non disponibile. Prova un altro tema.';});
+function openMusic(){sound('confirm');drawMusic();$('music-dialog').showModal();}
+$('music-open').onclick=openMusic;$('close-music').onclick=()=>$('music-dialog').close();
+$('settings-music-open').onclick=()=>{$('settings-dialog').close();openMusic();};
+$('music-play').onclick=()=>{preferences.music=!(preferences.music&&musicUnlocked);musicUnlocked=true;applyPreferences();};
+$('music-volume').oninput=()=>{preferences.volume=Number($('music-volume').value)/100;menuMusic.volume=preferences.volume;$('music-volume-label').value=Math.round(preferences.volume*100)+'%';writeLocal('b3pz:settings',preferences);};
 function sound(kind = 'select') {
   if (!preferences.sound) return;
   if(worldAudio[kind]){const clip=new Audio(worldAudio[kind]);clip.volume=.3;clip.play().catch(()=>{});return;}
@@ -37,7 +60,7 @@ function applyPreferences() {
 }
 function enterWorld() {
   if (!bootVisible) return;
-  bootVisible = false; $('collection').hidden = false; $('startup').classList.add('exiting');
+  bootVisible = false; musicUnlocked=true; $('collection').hidden = false; $('startup').classList.add('exiting');
   try { sessionStorage.setItem('b3pz:bootSeen','1'); } catch {}
   sound('boot'); syncMusic();
   setTimeout(() => { $('startup').hidden = true; $('carousel').focus({preventScroll:true}); }, preferences.motion ? 0 : 650);
@@ -174,7 +197,7 @@ async function fullscreen(target) { try { if(document.fullscreenElement)await do
 $('full').onclick=()=>fullscreen($('frame-wrap'));$('console-full').onclick=()=>fullscreen(document.documentElement);
 $('sound-toggle').onclick=()=>{preferences.sound=!preferences.sound;applyPreferences();sound('confirm');};
 $('settings').onclick=()=>{applyPreferences();$('settings-dialog').showModal();};$('close-settings').onclick=()=>$('settings-dialog').close();
-for(const [id,key] of [['setting-music','music'],['setting-sound','sound'],['setting-crt','crt'],['setting-motion','motion']])$(id).onchange=()=>{preferences[key]=$(id).checked;applyPreferences();if(key==='sound')sound('confirm');};
+for(const [id,key] of [['setting-music','music'],['setting-sound','sound'],['setting-crt','crt'],['setting-motion','motion']])$(id).onchange=()=>{preferences[key]=$(id).checked;if(key==='music')musicUnlocked=true;applyPreferences();if(key==='sound')sound('confirm');};
 document.addEventListener('keydown',event=>{
   if(event.altKey||event.ctrlKey||event.metaKey||/INPUT|TEXTAREA|SELECT/.test(event.target.tagName))return;
   if(bootVisible){if(event.key==='Enter'||event.key===' '){event.preventDefault();enterWorld();}return;}

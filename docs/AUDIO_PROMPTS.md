@@ -22,10 +22,10 @@ Nome: console-confirm.mp3
 
 Crea un singolo effetto UI originale di 0,3–0,5 secondi: due piccole note sintetiche ascendenti, morbide e luminose, che confermano la selezione di un gioco. Stesso timbro cristallino dell’effetto di scorrimento. Nessuna voce, niente bassi esplosivi o riverbero lungo.
 
-## 05 — PARTITION_99: 22:43
-Nome: partition-2243.mp3
+## 05 — PARTITION_99: notte digitale
+Nome: partition-night.mp3
 
-Crea un brano strumentale originale per PARTITION_99. Dicembre 1999, Valdarno, ore 22:43: una stanza illuminata dal monitor, un vecchio computer appena acceso, ricordi e un mistero ancora nascosto. Ambient elettronica intima, circa 65 BPM, pad analogici soffusi, una semplice frase di piano elettrico, piccoli impulsi digitali distanti. All’inizio curiosità e calore domestico, sotto una lieve ambiguità inquietante. Niente jumpscare, niente horror dichiarato, niente modem invadente o voce. 90 secondi, loop morbido senza dissolvenza finale. Non anticipare la trama.
+Crea un brano strumentale originale per PARTITION_99. Dicembre 1999, Valdarno, di notte: una stanza illuminata dal monitor, un vecchio computer appena acceso, ricordi e un mistero ancora nascosto. Ambient elettronica intima, circa 65 BPM, pad analogici soffusi, una semplice frase di piano elettrico, piccoli impulsi digitali distanti. All’inizio curiosità e calore domestico, sotto una lieve ambiguità inquietante. Niente jumpscare, niente horror dichiarato, niente modem invadente o voce. 90 secondi, loop morbido senza dissolvenza finale. Non anticipare la trama.
 
 ## Temi degli altri mondi
 Usa ciascuna riga come prompt autonomo aggiungendo: “Brano strumentale originale, 90 secondi, loop continuo senza intro né fade finale, niente voci, nessuna imitazione di musiche esistenti.”
