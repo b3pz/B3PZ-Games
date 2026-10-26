@@ -1,5 +1,5 @@
 const games = [
-{repo:'PARTITION_99',title:'PARTITION_99',cover:'PARTITION_99',category:'Avventura e mistero',genre:'Avventura investigativa',image:'partition.webp',accent:'#526b58',sub:'Un computer. Un segreto.',description:'Dicembre 1999, Valdarno. Accendi un vecchio computer, collegati con il modem e segui le tracce di un mistero nascosto tra file, chat e ricordi.',tags:['Thriller tecnologico','Investigazione','Anni ’90']},
+{repo:'PARTITION_99',title:'PARTITION_99',cover:'PARTITION_99',category:'Avventura e mistero',genre:'Avventura investigativa',image:'partition.webp',accent:'#526b58',sub:'Un computer. Un segreto.',description:'Dicembre 1999, Valdarno. Sono le 22:43. Accendi un vecchio computer, collegati con il modem e segui le tracce di un mistero nascosto tra file, chat e ricordi.',tags:['Thriller tecnologico','Investigazione','Anni ’90']},
 {repo:'Orfeo',title:'Orfeo',cover:'ORFEO',category:'Avventura e mistero',genre:'Avventura grafica · Punta e clicca',image:'orfeo.webp',accent:'#a07950',sub:'Ogni traccia ha una storia.',description:'Due protagonisti, un mistero da ricostruire. Esplora, conversa e combina gli oggetti in un’avventura tra città, archivi ed enigmi.',tags:['Punta e clicca','Enigmi','Due protagonisti']},
 {repo:'Ranger_Zero',title:'Project Ranger Zero',cover:'RANGER\nZERO',category:'Azione',genre:'Avventura d’azione narrativa',image:'ranger.webp',accent:'#793c3c',sub:'Trasformati. Scegli. Combatti.',description:'Una squadra di Ranger, trasformazioni e robot giganti. Alterna esplorazione, dialoghi e combattimenti in un’avventura fantascientifica.',tags:['Fantascienza','Combattimento','Storia']},
 {repo:'Primal_Sentinel',title:'Primal Sentinels',cover:'PRIMAL\nSENTINELS',category:'Azione',genre:'Picchiaduro a scorrimento',image:'primal.webp',accent:'#876849',sub:'Il cuore dei titani',description:'Affronta ondate di nemici e boss con poteri speciali e titani. Un picchiaduro da sala giochi, da affrontare anche in cooperativa.',tags:['Picchiaduro','Cooperativa','Titani']},
@@ -27,3 +27,20 @@ games.forEach(g=>{Object.assign(g,assetsByRepo[g.repo]);g.coverImage='covers/'+g
 const shotLabels = {"partition": ["Desktop NOVA 2000", "Connessione con il modem"], "orfeo": ["Menu principale", "Esplorazione e dialoghi"], "ranger": ["Menu principale"], "primal": ["Schermata del titolo", "Scelta del Sentinel", "Combattimento"], "primal2": ["Schermata del titolo", "Scelta del Sentinel", "Primo capitolo"], "stivale": ["Menu principale", "Scelta dell’eroe", "Briefing della missione"], "sim": ["Schermata iniziale", "Modalità di gioco", "Scelta delle squadre"], "moments": ["Schermata iniziale", "Stagione e classifica", "Partita in 3D"], "arcade": ["Schermata del titolo", "Modalità di gioco"], "it2d": ["Menu principale", "Inizio del turno"], "it3d": ["Menu principale", "Esplorazione dello studio"]};
 games.forEach(g=>{g.screenLabels=shotLabels[g.key];g.screens=g.screenLabels.map((_,i)=>"assets/screenshots/"+g.key+"-"+(g.key==="arcade"?i+2:i+1)+".webp");});
 games.forEach(g=>{g.video=g.video||null;});
+
+// Indicazioni generali: i tasti specifici sono sempre mostrati dal singolo gioco.
+const gameGuides = {
+ partition:'Usa mouse e tastiera come su un vecchio PC: apri programmi e documenti, scrivi nelle chat ed esplora. La storia inizia alle 22:43.',
+ orfeo:'Punta e clicca per esplorare, parlare con i personaggi e usare gli oggetti. Segui i verbi e le indicazioni dell’interfaccia.',
+ ranger:'Esplora, conversa e affronta i combattimenti. Consulta i comandi nel gioco. La revisione dei bug è in programma.',
+ primal:'Scegli il Sentinel e affronta i nemici. Consulta la schermata comandi per movimento, attacchi, poteri e cooperativa.',
+ primal2:'Scegli il personaggio e segui i comandi del gioco per attacchi, abilità e mosse di coppia.',
+ stivale:'Scegli l’eroe, corri, salta e spara. Le istruzioni del gioco indicano i tasti delle azioni.',
+ sim:'Scegli modalità e squadre con il mouse, imposta formazione e tattiche, poi segui la simulazione.',
+ arcade:'Controlla direttamente la squadra: movimento, passaggio, tiro e contrasto. Consulta i comandi nella schermata del gioco.',
+ it2d:'Gestisci ticket e imprevisti durante il turno. Usa le indicazioni a schermo per interagire e completare i minigiochi.',
+ it3d:'Esplora lo studio e interagisci con gli elementi dell’ambiente. Segui le istruzioni del gioco per i comandi.'
+};
+games.forEach(g=>{g.controls=gameGuides[g.key];g.development=true;g.status=g.key==='ranger'?'Revisione in programma · Bug da correggere':'Progetto indipendente in evoluzione';g.backdrop=g.screens[g.screens.length-1];});
+const worldAudio = {menu:null,boot:null,select:null,confirm:null};
+// Inserire qui percorsi di file reali, es. assets/audio/console-menu.mp3.

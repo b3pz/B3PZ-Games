@@ -34,3 +34,8 @@ Il pulsante Video demo è nascosto quando il gioco non ha un filmato. Aggiungere
 I salvataggi dipendono dal singolo gioco e dal browser. Tornare alla raccolta chiude il gioco; la console non simula una pausa o una ripresa non supportata.
 
 Provenienza delle immagini e limiti delle catture: docs/ASSETS.md.
+
+## World update
+Sfondi tratti dalle schermate dei giochi, accesso rapido all’ultimo avvio, filtro In sviluppo, schede con istruzioni e stato del progetto, presentazione del creatore. PARTITION_99 è presentato con l’orario iniziale 22:43. Il collegamento Riprendi riapre il gioco: il recupero della partita dipende dai suoi salvataggi.
+
+Prompt e nomi dei file audio: [docs/AUDIO_PROMPTS.md](docs/AUDIO_PROMPTS.md). Nessun audio Gemini incluso finché i file non sono forniti.
