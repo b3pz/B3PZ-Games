@@ -114,7 +114,8 @@ function update() {
   $('category-label').textContent = developmentOnly ? 'IN SVILUPPO · WORK IN PROGRESS' : favoritesOnly ? 'I TUOI PREFERITI' : filter === 'Tutti' ? 'TUTTI I MONDI' : filter.toUpperCase();
   $('prev').disabled = $('next').disabled = list.length < 2;
   if (!g) return;
-  const step = innerWidth <= 700 ? 169 : innerWidth < 1001 ? 173 : innerWidth >= 1600 ? 240 : 215;
+  const phoneLayout=matchMedia('(max-width:760px), (hover:none) and (pointer:coarse) and (orientation:portrait)').matches;
+  const step = phoneLayout ? Math.min(195,Math.max(155,innerWidth*.45)) : innerWidth < 1001 ? 173 : innerWidth >= 1600 ? 240 : 215;
   [...$('carousel').children].forEach((card,index) => {
     let offset = index-selected;
     if (offset > list.length/2) offset -= list.length;
