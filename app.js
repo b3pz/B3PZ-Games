@@ -5,7 +5,9 @@ function writeLocal(key, value) { try { localStorage.setItem(key, JSON.stringify
 const preferences = Object.assign({sound:false,music:false,track:'world-orbit',volume:.2,crt:true,motion:matchMedia('(prefers-reduced-motion: reduce)').matches}, readLocal('b3pz:settings', {}));
 let favorites = new Set(readLocal('b3pz:favorites', []).filter(repo => games.some(g => g.repo === repo)));
 let recent = readLocal('b3pz:lastPlayed', null);
-let filter = 'Tutti', favoritesOnly = false, developmentOnly = false, list = games.slice(), selected = Math.max(0, games.findIndex(g => g.repo === readLocal('b3pz:selected', 'PARTITION_99'))), playing = null;
+const requestedGame=new URLSearchParams(location.search).get('game');
+const initialRepo=games.some(g=>g.repo===requestedGame)?requestedGame:readLocal('b3pz:selected','PARTITION_99');
+let filter = 'Tutti', favoritesOnly = false, developmentOnly = false, list = games.slice(), selected = Math.max(0, games.findIndex(g => g.repo === initialRepo)), playing = null;
 let shotGame = null, shotSelection = 0, bootVisible = true, audioContext = null, toastTimer;
 const categories = ['Tutti','Avventura e mistero','Azione','Sport','Simulazione'];
 const gameUrl = g => `https://b3pz.github.io/${g.repo}/`;
@@ -227,3 +229,16 @@ try{if(sessionStorage.getItem('b3pz:bootSeen')==='1'){bootVisible=false;$('start
 
 document.addEventListener('visibilitychange',syncMusic);
 syncMusic();
+
+async function shareWorld(singleGame){
+ const g=singleGame?selectedGame():null;
+ const url=new URL('https://b3pz.github.io/B3PZ-Games/');
+ if(g)url.searchParams.set('game',g.repo);
+ const title=g?g.title+' · B3PZ World':'B3PZ World';
+ const text=g?'Prova '+g.title+' nel mio mondo di giochi.':'Ho raccolto qui i miei giochi. Scegline uno e fammi sapere che ne pensi!';
+ if(navigator.share){try{await navigator.share({title,text,url:url.href});return;}catch(error){if(error.name==='AbortError')return;}}
+ try{await navigator.clipboard.writeText(url.href);tell('Link copiato. Pronto da condividere!');}
+ catch{$('share-url').value=url.href;$('share-dialog').showModal();$('share-url').select();}
+}
+$('share-collection').onclick=()=>shareWorld(false);$('share-game').onclick=()=>shareWorld(true);
+$('close-share').onclick=()=>$('share-dialog').close();
