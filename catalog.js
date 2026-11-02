@@ -4,6 +4,7 @@ const games = [
 {repo:'Ranger_Zero',title:'Project Ranger Zero',cover:'RANGER\nZERO',category:'Azione',genre:'Avventura d’azione narrativa',image:'ranger.webp',accent:'#793c3c',sub:'Trasformati. Scegli. Combatti.',description:'Una squadra di Ranger, trasformazioni e robot giganti. Alterna esplorazione, dialoghi e combattimenti in un’avventura fantascientifica.',tags:['Fantascienza','Combattimento','Storia']},
 {repo:'Primal_Sentinel',title:'Primal Sentinels',cover:'PRIMAL\nSENTINELS',category:'Azione',genre:'Picchiaduro a scorrimento',image:'primal.webp',accent:'#876849',sub:'Il cuore dei titani',description:'Affronta ondate di nemici e boss con poteri speciali e titani. Un picchiaduro da sala giochi, da affrontare anche in cooperativa.',tags:['Picchiaduro','Cooperativa','Titani']},
 {repo:'Primal_sentinel_II',title:'Primal Sentinels II',cover:'PRIMAL\nSENTINELS II',category:'Azione',genre:'Picchiaduro a scorrimento',image:'primal2.webp',accent:'#515383',sub:'Cuori di Stella',description:'I Sentinels tornano con nuove abilità, mosse di coppia e una nuova avventura. Un seguito tra combattimenti, titani e minigiochi.',tags:['Picchiaduro','Cooperativa','Cuori di Stella']},
+{repo:'The_Warriors',title:'The Warriors · Night Run',cover:'THE WARRIORS\nNIGHT RUN',category:'Azione',genre:'Picchiaduro a scorrimento · dal film del 1979',image:'warriors.webp',accent:'#c81e1e',sub:'Venite fuori a giocare.',description:'New York, 1979. Accusati dell\'omicidio di Cyrus, i Warriors devono attraversare la città dal Bronx a Coney Island, inseguiti da tutte le bande. Una notte intera di risse, fughe e scene del film, anche in due giocatori.',tags:['Picchiaduro','Dal film','Due giocatori','Cinema']},
 {repo:'Stivale',title:'Mamma mia, i marziani!',cover:'MAMMA MIA,\nI MARZIANI!',category:'Azione',genre:'Run and gun · Platform d’azione',image:'stivale.webp',accent:'#b5944b',sub:'L’invasione ha inizio.',description:'Corri, salta e spara su un pianeta a forma di Stivale. Un’avventura arcade con eroi animali e un’estetica da cartone animato anni Trenta.',tags:['Corri e spara','Cartoon','Arcade']},
 {repo:'SOCCERSIM9000',title:'SerieA 9000 SIM',cover:'SERIEA\n9000 SIM',category:'Sport',genre:'Simulazione calcistica tattica',image:'sim.webp',accent:'#44634b',sub:'La tua squadra. La tua stagione.',description:'Scegli la formazione, imposta la tattica e segui le partite simulate. Campionati, coppe e squadre del calcio anni Novanta e Duemila.',tags:['Calcio','Strategia','Simulazione']},
 {repo:'soccer-arcade-2000',title:'Soccer Arcade 2000',cover:'SOCCER\nARCADE 2000',category:'Sport',genre:'Calcio arcade',image:'arcade.webp',accent:'#3a6172',sub:'Scendi in campo.',description:'Passaggi, dribbling, contrasti e tiri spettacolari. Controlla direttamente la squadra in un gioco di calcio ispirato ai cabinati anni Novanta.',tags:['Calcio','Arcade','Controllo diretto']},
@@ -16,6 +17,7 @@ const assetsByRepo = {
  'Ranger_Zero':{key:'ranger',logo:'ranger'},
  'Primal_Sentinel':{key:'primal',logo:'primal'},
  'Primal_sentinel_II':{key:'primal2',logo:'primal2'},
+ 'The_Warriors':{key:'warriors',logo:'warriors'},
  'Stivale':{key:'stivale',logo:'stivale'},
  'SOCCERSIM9000':{key:'sim',logo:'sim'},
  'soccer-arcade-2000':{key:'arcade',logo:'arcade'},
@@ -24,7 +26,7 @@ const assetsByRepo = {
 };
 games.forEach(g=>{Object.assign(g,assetsByRepo[g.repo]);g.coverImage='covers/'+g.key+'.webp';g.screens=[];});
 
-const shotLabels = {"partition": ["Desktop NOVA 2000", "Connessione con il modem"], "orfeo": ["Menu principale", "Esplorazione e dialoghi"], "ranger": ["Menu principale"], "primal": ["Schermata del titolo", "Scelta del Sentinel", "Combattimento"], "primal2": ["Schermata del titolo", "Scelta del Sentinel", "Primo capitolo"], "stivale": ["Menu principale", "Scelta dell’eroe", "Briefing della missione"], "sim": ["Schermata iniziale", "Modalità di gioco", "Scelta delle squadre"], "moments": ["Schermata iniziale", "Stagione e classifica", "Partita in 3D"], "arcade": ["Schermata del titolo", "Modalità di gioco"], "it2d": ["Menu principale", "Inizio del turno"], "it3d": ["Menu principale", "Esplorazione dello studio"]};
+const shotLabels = {"partition": ["Desktop NOVA 2000", "Connessione con il modem"], "orfeo": ["Menu principale", "Esplorazione e dialoghi"], "ranger": ["Menu principale"], "primal": ["Schermata del titolo", "Scelta del Sentinel", "Combattimento"], "primal2": ["Schermata del titolo", "Scelta del Sentinel", "Primo capitolo"], "warriors": ["Schermata del titolo", "Rissa a Riverside Park", "Le bande: l'entrata dei Furies", "Il bagno di Union Square", "La mappa del viaggio"], "stivale": ["Menu principale", "Scelta dell’eroe", "Briefing della missione"], "sim": ["Schermata iniziale", "Modalità di gioco", "Scelta delle squadre"], "moments": ["Schermata iniziale", "Stagione e classifica", "Partita in 3D"], "arcade": ["Schermata del titolo", "Modalità di gioco"], "it2d": ["Menu principale", "Inizio del turno"], "it3d": ["Menu principale", "Esplorazione dello studio"]};
 games.forEach(g=>{g.screenLabels=shotLabels[g.key];g.screens=g.screenLabels.map((_,i)=>"assets/screenshots/"+g.key+"-"+(g.key==="arcade"?i+2:i+1)+".webp");});
 games.forEach(g=>{g.video=g.video||null;});
 
@@ -35,6 +37,7 @@ const gameGuides = {
  ranger:'Esplora, conversa e affronta i combattimenti. Consulta i comandi nel gioco. La revisione dei bug è in programma.',
  primal:'Scegli il Sentinel e affronta i nemici. Consulta la schermata comandi per movimento, attacchi, poteri e cooperativa.',
  primal2:'Scegli il personaggio e segui i comandi del gioco per attacchi, abilità e mosse di coppia.',
+ warriors:'Tastiera, controller (anche PlayStation Classic) o touch. «Come si gioca» nel menu mostra ogni mossa in una dimostrazione; F9 per lo schermo intero. Cinema: guarda tutta la storia senza giocare.',
  stivale:'Scegli l’eroe, corri, salta e spara. Le istruzioni del gioco indicano i tasti delle azioni.',
  sim:'Scegli modalità e squadre con il mouse, imposta formazione e tattiche, poi segui la simulazione.',
  arcade:'Controlla direttamente la squadra: movimento, passaggio, tiro e contrasto. Consulta i comandi nella schermata del gioco.',
