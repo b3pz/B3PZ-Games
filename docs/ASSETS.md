@@ -12,8 +12,9 @@ Le scritte alternative presenti nei file di illustrazione generati non sono most
 - Soccer Arcade 2000: arcade/assets/art/title-logo.png
 - Orfeo, IT SHIFT 2D e IT SHIFT 3D: titolo ricavato dalla grafica del menu originale.
 - PARTITION_99: titolo della locandina originale fornita per il progetto.
+- Fuori Tempo: logo animato del gioco (dist/intro.js), renderizzato dal gioco su fondo trasparente; copertina e immagine sono la schermata del titolo del gioco.
 
 ## Screenshot
 Catture reali delle pagine di gioco effettuate il 26 ottobre 2026, senza ricostruzioni generate. Le didascalie distinguono menu, selezione e gameplay. Nessuna immagine generata è presentata come screenshot.
 
-Ranger Zero ha per ora una sola cattura pubblicata: il browser di acquisizione non ha caricato correttamente le texture 3D e ha mostrato un'inquadratura inutilizzabile. La seconda cattura resta da aggiungere. Gli altri dieci giochi hanno due o tre schermate.
+Ranger Zero ha per ora una sola cattura pubblicata: il browser di acquisizione non ha caricato correttamente le texture 3D e ha mostrato un'inquadratura inutilizzabile. La seconda cattura resta da aggiungere. Fuori Tempo ha cinque catture reali del 5 novembre 2026 (titolo, sequenza iniziale, sentiero, telefono in città, metro). Gli altri dieci giochi hanno due o tre schermate.

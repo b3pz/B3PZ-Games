@@ -1,6 +1,6 @@
 # B3PZ World
 
-Console web e raccolta di 11 giochi indipendenti di B3PZ.
+Console web e raccolta di 12 giochi indipendenti di B3PZ.
 
 **Sito:** https://b3pz.github.io/B3PZ-Games/
 

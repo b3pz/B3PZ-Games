@@ -9,7 +9,7 @@ const requestedGame=new URLSearchParams(location.search).get('game');
 const initialRepo=games.some(g=>g.repo===requestedGame)?requestedGame:readLocal('b3pz:selected','PARTITION_99');
 let filter = 'Tutti', favoritesOnly = false, developmentOnly = false, list = games.slice(), selected = Math.max(0, games.findIndex(g => g.repo === initialRepo)), playing = null;
 let shotGame = null, shotSelection = 0, bootVisible = true, audioContext = null, toastTimer;
-const categories = ['Tutti','Avventura e mistero','Azione','Sport','Simulazione'];
+const categories = ['Tutti','Avventura e mistero','Azione','Musica','Sport','Simulazione'];
 const gameUrl = g => `https://b3pz.github.io/${g.repo}/`;
 const selectedGame = () => list[selected];
 const activeDialog = () => document.querySelector('dialog[open]');
